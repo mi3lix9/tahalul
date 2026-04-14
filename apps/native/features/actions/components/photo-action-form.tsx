@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Image, Pressable, Text, View } from 'react-native';
+import { Image, Linking, Pressable, Text, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
+import { APP_CONFIG } from '@/constants/app-config';
 import { ACTION_OPTIONS } from '@/features/actions/data/action-definitions';
 import { useI18n } from '@/providers/i18n-provider';
 import type { ActionType } from '@/types/entities';
@@ -23,7 +24,7 @@ export function PhotoActionForm({ onSubmit }: Props) {
   useEffect(() => {
     if (!isAnalyzing || !selectedType || !photoUri || !confirming) return;
 
-    const timer = setTimeout(() => onSubmit(selectedType, photoUri), 1500);
+    const timer = setTimeout(() => onSubmit(selectedType, photoUri), APP_CONFIG.AI_ANALYSIS_DELAY_MS);
     return () => clearTimeout(timer);
   }, [confirming, isAnalyzing, onSubmit, photoUri, selectedType]);
 
@@ -61,6 +62,7 @@ export function PhotoActionForm({ onSubmit }: Props) {
       {options.map((option) => (
         <Pressable
           key={option.type}
+          accessibilityLabel={locale === 'ar' ? option.labelAr : option.labelEn}
           className={`flex-row items-center rounded-2xl border px-4 py-4 ${selectedType === option.type ? 'border-emerald-500 bg-emerald-50' : 'border-border bg-card'}`}
           onPress={() => void handleTakePhoto(option.type)}
         >
@@ -71,7 +73,14 @@ export function PhotoActionForm({ onSubmit }: Props) {
         </Pressable>
       ))}
 
-      {permissionDenied ? <Text className="text-sm text-destructive">{t('actions.cameraPermissionDenied')}</Text> : null}
+      {permissionDenied ? (
+        <View className="rounded-2xl border border-border bg-card p-4">
+          <Text className="text-sm text-destructive">{t('actions.cameraPermissionDenied')}</Text>
+          <Pressable className="mt-3 items-center rounded-2xl bg-emerald-500 px-4 py-3" onPress={() => void Linking.openSettings()}>
+            <Text className="font-semibold text-white">{t('actions.openSettings')}</Text>
+          </Pressable>
+        </View>
+      ) : null}
 
       {photoUri ? (
         <View className="rounded-3xl border border-border bg-card p-4">

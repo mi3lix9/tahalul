@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Pressable, Switch, Text, View } from 'react-native';
 
 import { ThemeToggle } from '@/components/theme-toggle';
+import { APP_CONFIG } from '@/constants/app-config';
+import { cancelAllReminders, requestNotificationPermission, scheduleDailyReminder } from '@/lib/notifications/reminders';
 import { isReminderEnabled, setReminderEnabled } from '@/lib/storage/preferences';
 import { useI18n } from '@/providers/i18n-provider';
 
@@ -27,8 +29,23 @@ export function SettingsList() {
   };
 
   const toggleNotifications = async (value: boolean) => {
-    setNotificationsEnabled(value);
-    await setReminderEnabled(value);
+    if (!value) {
+      setNotificationsEnabled(false);
+      await setReminderEnabled(false);
+      await cancelAllReminders();
+      return;
+    }
+
+    const granted = await requestNotificationPermission();
+    if (!granted) {
+      setNotificationsEnabled(false);
+      await setReminderEnabled(false);
+      return;
+    }
+
+    setNotificationsEnabled(true);
+    await setReminderEnabled(true);
+    await scheduleDailyReminder(APP_CONFIG.DAILY_REMINDER_HOUR, APP_CONFIG.DAILY_REMINDER_MINUTE);
   };
 
   return (

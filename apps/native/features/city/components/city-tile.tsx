@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 
 import type { StageTheme } from '@/constants/stage-theme';
 import { BUILDING_DEFS } from '@/features/city/data/buildings';
+import { useI18n } from '@/providers/i18n-provider';
 import type { CityTile as CityTileType } from '@/types/entities';
 
 type Props = {
@@ -11,6 +12,8 @@ type Props = {
 };
 
 export function CityTile({ tile, stageTheme }: Props) {
+  const { locale } = useI18n();
+
   if (tile.buildingType === 'empty') {
     return (
       <View className="m-1 aspect-square w-[15%] items-center justify-center rounded-2xl border border-white/5" style={{ backgroundColor: stageTheme.emptyTileColor }}>
@@ -22,7 +25,12 @@ export function CityTile({ tile, stageTheme }: Props) {
   const building = BUILDING_DEFS[tile.buildingType];
 
   return (
-    <Animated.View entering={ZoomIn.springify().damping(14)} className="m-1 aspect-square w-[15%] items-center justify-center rounded-2xl border border-white/10" style={{ backgroundColor: building.color }}>
+    <Animated.View
+      accessibilityLabel={locale === 'ar' ? building.nameAr : building.nameEn}
+      entering={ZoomIn.springify().damping(14)}
+      className="m-1 aspect-square w-[15%] items-center justify-center rounded-2xl border border-white/10"
+      style={{ backgroundColor: building.color }}
+    >
       <Text className="text-2xl">{building.icon}</Text>
     </Animated.View>
   );

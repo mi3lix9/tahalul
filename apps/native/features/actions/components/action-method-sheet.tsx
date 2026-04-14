@@ -43,6 +43,7 @@ export function ActionMethodSheet({ isOpen, onClose, onSelectMethod }: Props) {
         {OPTIONS.map((option) => (
           <Pressable
             key={option.method}
+            accessibilityLabel={t(option.key)}
             className="flex-row items-center rounded-2xl border border-border bg-card px-4 py-4"
             onPress={() => {
               onSelectMethod(option.method);

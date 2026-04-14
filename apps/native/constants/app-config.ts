@@ -1,0 +1,10 @@
+export const APP_CONFIG = {
+  APP_NAME: 'Tahalul',
+  APP_NAME_AR: 'تحالل',
+  DAILY_REMINDER_HOUR: 20,
+  DAILY_REMINDER_MINUTE: 0,
+  MAX_LEVEL: 50,
+  GRID_SIZE: 6,
+  STREAK_FREEZE_PER_WEEK: 1,
+  AI_ANALYSIS_DELAY_MS: 1500,
+} as const;

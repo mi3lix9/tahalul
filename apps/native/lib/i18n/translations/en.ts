@@ -59,6 +59,8 @@ export const en = {
     today: 'Today',
     thisWeek: 'This week',
     live: 'Live',
+    emptyTitle: 'No active challenges yet',
+    emptySubtitle: 'Check back later or log more eco actions to unlock fresh challenges.',
   },
   actions: {
     title: 'Log Your Action',
@@ -101,6 +103,8 @@ export const en = {
     liters: 'L',
     share: 'Share Your Impact',
     shareText: 'I saved {{co2}} kg CO₂ with Tahalul',
+    emptyTitle: 'No impact yet',
+    emptySubtitle: 'Log your first eco action to start tracking your environmental impact.',
   },
   profile: {
     title: 'Profile',
@@ -118,6 +122,8 @@ export const en = {
     streakFreezes: 'Streak Freezes',
     days: 'days',
     defaultName: 'Tahalul User',
+    emptyBadgesTitle: 'No badges unlocked yet',
+    emptyBadgesSubtitle: 'Keep logging actions and completing challenges to earn your first badge.',
   },
   map: {
     title: 'Recycling Map',

@@ -59,6 +59,8 @@ export const ar = {
     today: 'اليوم',
     thisWeek: 'هذا الأسبوع',
     live: 'مباشر',
+    emptyTitle: 'لا توجد تحديات نشطة بعد',
+    emptySubtitle: 'عد لاحقًا أو سجّل المزيد من الأعمال البيئية لفتح تحديات جديدة.',
   },
   actions: {
     title: 'سجّل عملك',
@@ -101,6 +103,8 @@ export const ar = {
     liters: 'لتر',
     share: 'شارك أثرك',
     shareText: 'أنا وفّرت {{co2}} كجم CO₂ مع تحالل',
+    emptyTitle: 'لا يوجد أثر بعد',
+    emptySubtitle: 'سجّل أول عمل بيئي لبدء تتبع أثرك على البيئة.',
   },
   profile: {
     title: 'الملف الشخصي',
@@ -118,6 +122,8 @@ export const ar = {
     streakFreezes: 'تجميد السلسلة',
     days: 'أيام',
     defaultName: 'مستخدم تحالل',
+    emptyBadgesTitle: 'لا توجد شارات مفتوحة بعد',
+    emptyBadgesSubtitle: 'واصل تسجيل الأعمال وإكمال التحديات لكسب أول شارة.',
   },
   map: {
     title: 'خريطة إعادة التدوير',

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 
 import { AppScreen } from '@/components/app-screen';
+import { EmptyState } from '@/components/empty-state';
 import { SectionHeader } from '@/components/section-header';
 import { ChallengeList } from '@/features/challenges/components/challenge-list';
 import { GroupProgressCard } from '@/features/challenges/components/group-progress-card';
@@ -56,6 +57,7 @@ export default function ChallengesScreen() {
       },
     [challenges],
   );
+  const scopedChallenges = useMemo(() => challenges.filter((item) => item.scope === activeTab && item.status === 'active'), [activeTab, challenges]);
 
   return (
     <AppScreen>
@@ -69,7 +71,13 @@ export default function ChallengesScreen() {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerClassName="pb-8">
-        {activeTab === 'group' ? <GroupProgressCard challenge={groupChallenge} /> : <ChallengeList challenges={challenges} scope={activeTab} />}
+        {activeTab === 'group' ? (
+          <GroupProgressCard challenge={groupChallenge} />
+        ) : scopedChallenges.length > 0 ? (
+          <ChallengeList challenges={challenges} scope={activeTab} />
+        ) : (
+          <EmptyState icon="🏁" title={t('challenges.emptyTitle')} subtitle={t('challenges.emptySubtitle')} />
+        )}
       </ScrollView>
     </AppScreen>
   );

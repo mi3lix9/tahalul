@@ -1,6 +1,7 @@
 import { Alert, Pressable, ScrollView, Text } from 'react-native';
 
 import { AppScreen } from '@/components/app-screen';
+import { EmptyState } from '@/components/empty-state';
 import { SectionHeader } from '@/components/section-header';
 import { ImpactChartCard } from '@/features/impact/components/impact-chart-card';
 import { ImpactSummaryCard } from '@/features/impact/components/impact-summary-card';
@@ -17,12 +18,18 @@ export default function ImpactScreen() {
     <AppScreen>
       <SectionHeader title={t('impact.title')} subtitle={t('impact.subtitle')} />
       <ScrollView showsVerticalScrollIndicator={false} contentContainerClassName="pb-8">
-        <ImpactSummaryCard />
-        <ImpactChartCard />
+        {actions.length === 0 ? (
+          <EmptyState icon="📊" title={t('impact.emptyTitle')} subtitle={t('impact.emptySubtitle')} />
+        ) : (
+          <>
+            <ImpactSummaryCard />
+            <ImpactChartCard />
 
-        <Pressable className="mt-5 rounded-2xl bg-emerald-500 px-4 py-4" onPress={() => Alert.alert(t('impact.share'), t('impact.shareText', { co2: impact.totalCo2SavedKg }))}>
-          <Text className="text-center font-bold text-white">{t('impact.share')}</Text>
-        </Pressable>
+            <Pressable className="mt-5 rounded-2xl bg-emerald-500 px-4 py-4" onPress={() => Alert.alert(t('impact.share'), t('impact.shareText', { co2: impact.totalCo2SavedKg }))}>
+              <Text className="text-center font-bold text-white">{t('impact.share')}</Text>
+            </Pressable>
+          </>
+        )}
       </ScrollView>
     </AppScreen>
   );

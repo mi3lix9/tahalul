@@ -22,6 +22,7 @@ export default function TabsLayout() {
         name="index"
         options={{
           title: t('tabs.home'),
+          tabBarAccessibilityLabel: t('tabs.home'),
           tabBarIcon: ({ color, size }) => <Ionicons name="home" size={size} color={color} />,
         }}
       />
@@ -29,6 +30,7 @@ export default function TabsLayout() {
         name="challenges"
         options={{
           title: t('tabs.challenges'),
+          tabBarAccessibilityLabel: t('tabs.challenges'),
           tabBarIcon: ({ color, size }) => <Ionicons name="trophy" size={size} color={color} />,
         }}
       />
@@ -36,6 +38,7 @@ export default function TabsLayout() {
         name="actions"
         options={{
           title: t('tabs.log'),
+          tabBarAccessibilityLabel: t('tabs.log'),
           tabBarIcon: ({ color, size }) => <Ionicons name="add-circle" size={size} color={color} />,
         }}
       />
@@ -43,6 +46,7 @@ export default function TabsLayout() {
         name="impact"
         options={{
           title: t('tabs.impact'),
+          tabBarAccessibilityLabel: t('tabs.impact'),
           tabBarIcon: ({ color, size }) => <Ionicons name="bar-chart" size={size} color={color} />,
         }}
       />
@@ -50,6 +54,7 @@ export default function TabsLayout() {
         name="profile"
         options={{
           title: t('tabs.profile'),
+          tabBarAccessibilityLabel: t('tabs.profile'),
           tabBarIcon: ({ color, size }) => <Ionicons name="person" size={size} color={color} />,
         }}
       />

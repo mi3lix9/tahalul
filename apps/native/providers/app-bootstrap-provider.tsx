@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
+import { LoadingScreen } from '@/components/loading-screen';
 import { isOnboardingComplete } from '@/lib/storage/preferences';
 
 type BootstrapState = {
@@ -35,9 +36,5 @@ export function AppBootstrapProvider({ children }: { children: React.ReactNode }
     setIsOnboarded(val);
   };
 
-  return (
-    <BootstrapContext.Provider value={{ isReady, isOnboarded, setOnboarded }}>
-      {children}
-    </BootstrapContext.Provider>
-  );
+  return <BootstrapContext.Provider value={{ isReady, isOnboarded, setOnboarded }}>{isReady ? children : <LoadingScreen />}</BootstrapContext.Provider>;
 }
