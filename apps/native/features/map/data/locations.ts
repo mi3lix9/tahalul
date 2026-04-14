@@ -1,0 +1,24 @@
+import type { MapLocation } from '@/types/domain';
+
+export const MAP_LOCATIONS: MapLocation[] = [
+  { id: 'loc1', nameAr: 'محطة إعادة تدوير الرياض 1', nameEn: 'Riyadh Recycling Station 1', city: 'Riyadh', lat: 24.7136, lng: 46.6753, types: ['plastic', 'paper', 'glass'], hoursAr: '٨ص - ٨م', hoursEn: '8AM - 8PM', rating: 4.2, reviewCount: 134 },
+  { id: 'loc2', nameAr: 'مركز فرز النفايات - الرياض', nameEn: 'Waste Sorting Center - Riyadh', city: 'Riyadh', lat: 24.6877, lng: 46.7219, types: ['plastic', 'metal', 'electronics'], hoursAr: '٩ص - ٦م', hoursEn: '9AM - 6PM', rating: 4.0, reviewCount: 89 },
+  { id: 'loc3', nameAr: 'نقطة تجميع شمال الرياض', nameEn: 'North Riyadh Collection Point', city: 'Riyadh', lat: 24.7741, lng: 46.7386, types: ['plastic', 'paper'], hoursAr: '٧ص - ٩م', hoursEn: '7AM - 9PM', rating: 4.5, reviewCount: 201 },
+  { id: 'loc4', nameAr: 'محطة إعادة تدوير غرب الرياض', nameEn: 'West Riyadh Recycling Station', city: 'Riyadh', lat: 24.6333, lng: 46.5833, types: ['glass', 'organic'], hoursAr: '٨ص - ٧م', hoursEn: '8AM - 7PM', rating: 3.8, reviewCount: 56 },
+  { id: 'loc5', nameAr: 'محطة جدة للتدوير', nameEn: 'Jeddah Recycling Station', city: 'Jeddah', lat: 21.4858, lng: 39.1925, types: ['plastic', 'paper', 'metal'], hoursAr: '٨ص - ٨م', hoursEn: '8AM - 8PM', rating: 4.3, reviewCount: 167 },
+  { id: 'loc6', nameAr: 'مركز فرز جدة الجنوبي', nameEn: 'South Jeddah Sorting Center', city: 'Jeddah', lat: 21.4225, lng: 39.2261, types: ['plastic', 'glass', 'electronics'], hoursAr: '٩ص - ٥م', hoursEn: '9AM - 5PM', rating: 4.1, reviewCount: 92 },
+  { id: 'loc7', nameAr: 'نقطة تجميع شرق جدة', nameEn: 'East Jeddah Collection Point', city: 'Jeddah', lat: 21.5169, lng: 39.2192, types: ['paper', 'organic'], hoursAr: '٨ص - ٦م', hoursEn: '8AM - 6PM', rating: 3.9, reviewCount: 45 },
+  { id: 'loc8', nameAr: 'محطة تدوير جدة الشمالية', nameEn: 'North Jeddah Recycling', city: 'Jeddah', lat: 21.5731, lng: 39.1724, types: ['plastic', 'metal'], hoursAr: '٧ص - ٨م', hoursEn: '7AM - 8PM', rating: 4.4, reviewCount: 178 },
+  { id: 'loc9', nameAr: 'محطة الدمام لإعادة التدوير', nameEn: 'Dammam Recycling Station', city: 'Dammam', lat: 26.3927, lng: 49.9777, types: ['plastic', 'paper', 'glass', 'metal'], hoursAr: '٨ص - ٧م', hoursEn: '8AM - 7PM', rating: 4.0, reviewCount: 110 },
+  { id: 'loc10', nameAr: 'مركز فرز الدمام', nameEn: 'Dammam Sorting Center', city: 'Dammam', lat: 26.4207, lng: 50.0888, types: ['electronics', 'plastic'], hoursAr: '٩ص - ٦م', hoursEn: '9AM - 6PM', rating: 3.7, reviewCount: 34 },
+  { id: 'loc11', nameAr: 'نقطة تجميع وسط الدمام', nameEn: 'Central Dammam Collection', city: 'Dammam', lat: 26.4367, lng: 50.1039, types: ['paper', 'glass'], hoursAr: '٨ص - ٨م', hoursEn: '8AM - 8PM', rating: 4.2, reviewCount: 76 },
+  { id: 'loc12', nameAr: 'محطة تدوير شرق الدمام', nameEn: 'East Dammam Recycling', city: 'Dammam', lat: 26.3833, lng: 50.1167, types: ['organic', 'plastic'], hoursAr: '٧ص - ٧م', hoursEn: '7AM - 7PM', rating: 4.1, reviewCount: 63 },
+  { id: 'loc13', nameAr: 'محطة مكة لإعادة التدوير', nameEn: 'Mecca Recycling Station', city: 'Mecca', lat: 21.3891, lng: 39.8579, types: ['plastic', 'paper', 'glass'], hoursAr: '٨ص - ١٠م', hoursEn: '8AM - 10PM', rating: 4.5, reviewCount: 234 },
+  { id: 'loc14', nameAr: 'مركز فرز مكة', nameEn: 'Mecca Sorting Center', city: 'Mecca', lat: 21.4167, lng: 39.8264, types: ['metal', 'electronics'], hoursAr: '٩ص - ٧م', hoursEn: '9AM - 7PM', rating: 3.9, reviewCount: 87 },
+  { id: 'loc15', nameAr: 'نقطة تجميع العزيزية', nameEn: 'Al-Aziziyah Collection Point', city: 'Mecca', lat: 21.3667, lng: 39.8833, types: ['plastic', 'organic'], hoursAr: '٨ص - ٩م', hoursEn: '8AM - 9PM', rating: 4.3, reviewCount: 156 },
+  { id: 'loc16', nameAr: 'محطة تدوير شمال مكة', nameEn: 'North Mecca Recycling', city: 'Mecca', lat: 21.4333, lng: 39.8167, types: ['paper', 'glass'], hoursAr: '٧ص - ٨م', hoursEn: '7AM - 8PM', rating: 4.0, reviewCount: 98 },
+  { id: 'loc17', nameAr: 'محطة المدينة لإعادة التدوير', nameEn: 'Medina Recycling Station', city: 'Medina', lat: 24.4539, lng: 39.6142, types: ['plastic', 'paper', 'metal'], hoursAr: '٨ص - ٨م', hoursEn: '8AM - 8PM', rating: 4.4, reviewCount: 189 },
+  { id: 'loc18', nameAr: 'مركز فرز المدينة المنورة', nameEn: 'Medina Sorting Center', city: 'Medina', lat: 24.4672, lng: 39.6111, types: ['glass', 'electronics'], hoursAr: '٩ص - ٦م', hoursEn: '9AM - 6PM', rating: 4.1, reviewCount: 72 },
+  { id: 'loc19', nameAr: 'نقطة تجميع قباء', nameEn: 'Quba Collection Point', city: 'Medina', lat: 24.4394, lng: 39.6167, types: ['plastic', 'organic'], hoursAr: '٧ص - ٩م', hoursEn: '7AM - 9PM', rating: 4.6, reviewCount: 145 },
+  { id: 'loc20', nameAr: 'محطة تدوير طريق المطار', nameEn: 'Airport Road Recycling', city: 'Medina', lat: 24.5500, lng: 39.7050, types: ['paper', 'metal', 'plastic'], hoursAr: '٨ص - ٧م', hoursEn: '8AM - 7PM', rating: 3.8, reviewCount: 41 },
+];
