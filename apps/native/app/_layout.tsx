@@ -6,6 +6,7 @@ import { KeyboardProvider } from 'react-native-keyboard-controller';
 
 import { AppThemeProvider } from '@/contexts/app-theme-context';
 import { AppBootstrapProvider } from '@/providers/app-bootstrap-provider';
+import { I18nProvider } from '@/providers/i18n-provider';
 
 export const unstable_settings = {
   initialRouteName: 'index',
@@ -32,13 +33,15 @@ export default function Layout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <KeyboardProvider>
-        <AppThemeProvider>
-          <HeroUINativeProvider>
-            <AppBootstrapProvider>
-              <StackLayout />
-            </AppBootstrapProvider>
-          </HeroUINativeProvider>
-        </AppThemeProvider>
+        <I18nProvider>
+          <AppThemeProvider>
+            <HeroUINativeProvider>
+              <AppBootstrapProvider>
+                <StackLayout />
+              </AppBootstrapProvider>
+            </HeroUINativeProvider>
+          </AppThemeProvider>
+        </I18nProvider>
       </KeyboardProvider>
     </GestureHandlerRootView>
   );

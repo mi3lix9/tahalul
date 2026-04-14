@@ -1,13 +1,17 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
+import { isOnboardingComplete } from '@/lib/storage/preferences';
+
 type BootstrapState = {
   isReady: boolean;
   isOnboarded: boolean;
+  setOnboarded: (val: boolean) => void;
 };
 
 const BootstrapContext = createContext<BootstrapState>({
   isReady: false,
   isOnboarded: false,
+  setOnboarded: () => {},
 });
 
 export function useBootstrap() {
@@ -15,19 +19,25 @@ export function useBootstrap() {
 }
 
 export function AppBootstrapProvider({ children }: { children: React.ReactNode }) {
-  const [state, setState] = useState<BootstrapState>({
-    isReady: false,
-    isOnboarded: false,
-  });
+  const [isReady, setIsReady] = useState(false);
+  const [isOnboarded, setIsOnboarded] = useState(false);
 
   useEffect(() => {
-    // Will be expanded in Phase 1/2 to load AsyncStorage prefs + hydrate SQLite
     const bootstrap = async () => {
-      // Simulate async init
-      setState({ isReady: true, isOnboarded: false });
+      const onboarded = await isOnboardingComplete();
+      setIsOnboarded(onboarded);
+      setIsReady(true);
     };
     bootstrap();
   }, []);
 
-  return <BootstrapContext.Provider value={state}>{children}</BootstrapContext.Provider>;
+  const setOnboarded = (val: boolean) => {
+    setIsOnboarded(val);
+  };
+
+  return (
+    <BootstrapContext.Provider value={{ isReady, isOnboarded, setOnboarded }}>
+      {children}
+    </BootstrapContext.Provider>
+  );
 }
