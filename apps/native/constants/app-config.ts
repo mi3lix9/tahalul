@@ -1,6 +1,6 @@
 export const APP_CONFIG = {
   APP_NAME: 'Tahalul',
-  APP_NAME_AR: 'تحالل',
+  APP_NAME_AR: 'تهلل',
   DAILY_REMINDER_HOUR: 20,
   DAILY_REMINDER_MINUTE: 0,
   MAX_LEVEL: 50,

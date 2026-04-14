@@ -1,4 +1,4 @@
-# Tahalul (تحالل)
+# Tahalul (تهلل)
 
 Turn real-world eco-friendly actions into the growth of a personal virtual city. Every bottle recycled, every plastic-free day, every verified green action rebuilds a polluted city into a thriving green metropolis.
 
