@@ -56,6 +56,9 @@ export const ar = {
     reward: 'المكافأة',
     timeLeft: 'الوقت المتبقي',
     placeholder: 'تحديات يومية وأسبوعية',
+    today: 'اليوم',
+    thisWeek: 'هذا الأسبوع',
+    live: 'مباشر',
   },
   actions: {
     title: 'سجّل عملك',
@@ -113,6 +116,8 @@ export const ar = {
     notifications: 'الإشعارات',
     theme: 'المظهر',
     streakFreezes: 'تجميد السلسلة',
+    days: 'أيام',
+    defaultName: 'مستخدم تحالل',
   },
   map: {
     title: 'خريطة إعادة التدوير',

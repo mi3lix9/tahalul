@@ -56,6 +56,9 @@ export const en = {
     reward: 'Reward',
     timeLeft: 'Time Left',
     placeholder: 'Daily and weekly challenges',
+    today: 'Today',
+    thisWeek: 'This week',
+    live: 'Live',
   },
   actions: {
     title: 'Log Your Action',
@@ -113,6 +116,8 @@ export const en = {
     notifications: 'Notifications',
     theme: 'Theme',
     streakFreezes: 'Streak Freezes',
+    days: 'days',
+    defaultName: 'Tahalul User',
   },
   map: {
     title: 'Recycling Map',

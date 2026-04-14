@@ -1,14 +1,20 @@
-import { View, Text } from 'react-native';
-import { ThemeToggle } from '@/components/theme-toggle';
+import { ScrollView } from 'react-native';
+
+import { AppScreen } from '@/components/app-screen';
+import { BadgeStrip } from '@/features/profile/components/badge-strip';
+import { ProfileHeader } from '@/features/profile/components/profile-header';
+import { SettingsList } from '@/features/profile/components/settings-list';
+import { StreakCard } from '@/features/profile/components/streak-card';
 
 export default function ProfileScreen() {
   return (
-    <View className="flex-1 items-center justify-center bg-background">
-      <Text className="text-2xl font-bold text-foreground">👤 الملف الشخصي</Text>
-      <Text className="mt-2 text-foreground/60">مستواك وإنجازاتك</Text>
-      <View className="mt-4">
-        <ThemeToggle />
-      </View>
-    </View>
+    <AppScreen>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerClassName="pb-8">
+        <ProfileHeader />
+        <StreakCard />
+        <BadgeStrip />
+        <SettingsList />
+      </ScrollView>
+    </AppScreen>
   );
 }
