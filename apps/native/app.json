@@ -1,6 +1,7 @@
 {
   "expo": {
     "scheme": "tahalul",
+    "sdkVersion": "55.0.0",
     "userInterfaceStyle": "automatic",
     "orientation": "default",
     "web": {
@@ -24,6 +25,16 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "android": {
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.mi3lix9.tahalul"
+    },
+    "ios": {
+      "bundleIdentifier": "com.mi3lix9.tahalul"
     }
   }
 }
