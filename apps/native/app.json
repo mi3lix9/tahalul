@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "scheme": "tahalul",
+    "userInterfaceStyle": "automatic",
+    "orientation": "default",
+    "web": {
+      "bundler": "metro"
+    },
+    "name": "tahalul",
+    "slug": "tahalul",
+    "plugins": ["expo-font"],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}
