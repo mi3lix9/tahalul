@@ -1,20 +1,29 @@
-import "@/global.css";
-import { Stack } from "expo-router";
-import { HeroUINativeProvider } from "heroui-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { KeyboardProvider } from "react-native-keyboard-controller";
+import '@/global.css';
+import { Stack } from 'expo-router';
+import { HeroUINativeProvider } from 'heroui-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
 
-import { AppThemeProvider } from "@/contexts/app-theme-context";
+import { AppThemeProvider } from '@/contexts/app-theme-context';
+import { AppBootstrapProvider } from '@/providers/app-bootstrap-provider';
 
 export const unstable_settings = {
-  initialRouteName: "(drawer)",
+  initialRouteName: 'index',
 };
 
 function StackLayout() {
   return (
-    <Stack screenOptions={{}}>
-      <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
-      <Stack.Screen name="modal" options={{ title: "Modal", presentation: "modal" }} />
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="index" />
+      <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="onboarding/language" />
+      <Stack.Screen name="onboarding/intro" />
+      <Stack.Screen name="onboarding/profile" />
+      <Stack.Screen name="map" options={{ presentation: 'modal' }} />
+      <Stack.Screen name="shop" options={{ presentation: 'modal' }} />
+      <Stack.Screen name="story" options={{ presentation: 'modal' }} />
+      <Stack.Screen name="assistant" options={{ presentation: 'modal' }} />
+      <Stack.Screen name="badge/[id]" options={{ presentation: 'modal' }} />
     </Stack>
   );
 }
@@ -25,7 +34,9 @@ export default function Layout() {
       <KeyboardProvider>
         <AppThemeProvider>
           <HeroUINativeProvider>
-            <StackLayout />
+            <AppBootstrapProvider>
+              <StackLayout />
+            </AppBootstrapProvider>
           </HeroUINativeProvider>
         </AppThemeProvider>
       </KeyboardProvider>

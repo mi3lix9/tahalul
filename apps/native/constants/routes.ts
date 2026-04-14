@@ -1,0 +1,15 @@
+export const ROUTES = {
+  ONBOARDING_LANGUAGE: '/onboarding/language',
+  ONBOARDING_INTRO: '/onboarding/intro',
+  ONBOARDING_PROFILE: '/onboarding/profile',
+  TABS: '/(tabs)',
+  HOME: '/(tabs)/',
+  CHALLENGES: '/(tabs)/challenges',
+  ACTIONS: '/(tabs)/actions',
+  IMPACT: '/(tabs)/impact',
+  PROFILE: '/(tabs)/profile',
+  MAP: '/map',
+  SHOP: '/shop',
+  STORY: '/story',
+  ASSISTANT: '/assistant',
+} as const;

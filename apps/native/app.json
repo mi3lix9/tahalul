@@ -8,7 +8,19 @@
     },
     "name": "tahalul",
     "slug": "tahalul",
-    "plugins": ["expo-font"],
+    "plugins": [
+      "expo-font",
+      "expo-camera",
+      "expo-image-picker",
+      "expo-notifications",
+      "expo-sqlite",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#1a1a2e"
+        }
+      ]
+    ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
