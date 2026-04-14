@@ -9,9 +9,9 @@ import { MAP_LOCATIONS } from '@/features/map/data/locations';
 import { useI18n } from '@/providers/i18n-provider';
 
 export default function MapScreen() {
-  const { locale, t } = useI18n();
+  const { t } = useI18n();
   const [filter, setFilter] = useState('all');
-  const filters = ['all', 'plastic', 'paper', 'glass', 'electronics', 'organic'];
+  const filters = ['all', 'plastic', 'paper', 'glass', 'electronics', 'organic', 'metal'];
 
   return (
     <AppScreen>
@@ -31,7 +31,7 @@ export default function MapScreen() {
               onPress={() => setFilter(item)}
               style={{ backgroundColor: filter === item ? 'rgba(16,185,129,0.18)' : 'rgba(255,255,255,0.06)' }}
             >
-              <Text className="font-medium text-foreground">{item === 'all' ? (locale === 'ar' ? 'الكل' : 'All') : t(`map.${item}`)}</Text>
+              <Text className="font-medium text-foreground">{t(`map.${item}`)}</Text>
             </Pressable>
           ))}
         </ScrollView>

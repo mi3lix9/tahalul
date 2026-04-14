@@ -26,7 +26,7 @@ export function LocationCard({ location }: { location: MapLocation }) {
   };
 
   const handleCheckIn = () => {
-    logAction({ type: 'checkin', verificationMethod: 'manual', locationId: location.id });
+    logAction({ type: 'checkin', verificationMethod: 'qr', locationId: location.id });
     Alert.alert('✓', title);
   };
 

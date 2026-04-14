@@ -128,7 +128,9 @@ export const en = {
   map: {
     title: 'Recycling Map',
     filter: 'Filter',
+    all: 'All',
     plastic: 'Plastic',
+    metal: 'Metal',
     paper: 'Paper',
     glass: 'Glass',
     electronics: 'Electronics',

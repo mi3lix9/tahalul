@@ -27,6 +27,8 @@ export interface ActionResult {
   newEcoPoints: number;
   newStreak: number;
   streakContinued: boolean;
+  streakFreezeUsed: boolean;
+  remainingFreezes: number;
   newBuilding: { x: number; y: number; type: BuildingType } | null;
   newCityStage: CityStage | null;
   unlockedBadges: string[];

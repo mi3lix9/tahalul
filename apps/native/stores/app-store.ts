@@ -1,8 +1,15 @@
 import { create } from 'zustand';
 import type { UserProfile, ActionLog, CityTile, ChallengeProgress, BadgeUnlock, RewardRedemption, ActionType } from '@/types/entities';
 import type { VerifiedActionInput, ActionResult, BadgeCheckStats } from '@/types/domain';
+import { DAILY_CHALLENGES, GROUP_CHALLENGES, WEEKLY_CHALLENGES } from '@/features/challenges/data/challenge-definitions';
+import { insertAction } from '@/lib/db/repositories/actions-repository';
+import { insertBadgeUnlock } from '@/lib/db/repositories/badges-repository';
+import { updateCityTile } from '@/lib/db/repositories/city-repository';
+import { upsertChallenge } from '@/lib/db/repositories/challenges-repository';
+import { insertRedemption } from '@/lib/db/repositories/rewards-repository';
+import { upsertUserProfile } from '@/lib/db/repositories/user-repository';
 import { applyVerifiedAction } from '@/lib/domain/apply-verified-action';
-import { initEmptyGrid } from '@/lib/domain/city';
+import { getCityStage, initEmptyGrid } from '@/lib/domain/city';
 
 interface AppState {
   user: UserProfile;
@@ -11,7 +18,6 @@ interface AppState {
   challenges: ChallengeProgress[];
   badges: BadgeUnlock[];
   redemptions: RewardRedemption[];
-  treesPlanted: number;
   setUser: (user: UserProfile) => void;
   logAction: (input: VerifiedActionInput) => ActionResult;
   redeemReward: (rewardId: string, cost: number) => { code: string } | null;
@@ -19,6 +25,18 @@ interface AppState {
   updateChallengeProgress: (challengeDefId: string, increment: number) => void;
   resetDailyChallenges: (newChallenges: ChallengeProgress[]) => void;
   hydrate: (data: Partial<AppState>) => void;
+}
+
+const ALL_CHALLENGE_DEFS = [...DAILY_CHALLENGES, ...WEEKLY_CHALLENGES, ...GROUP_CHALLENGES];
+
+function getGoalForChallenge(defId: string): number {
+  return ALL_CHALLENGE_DEFS.find((c) => c.id === defId)?.goal ?? Infinity;
+}
+
+function persistSafely(operation: Promise<void>) {
+  void operation.catch((error) => {
+    console.error('Persistence error', error);
+  });
 }
 
 function createDefaultUser(): UserProfile {
@@ -50,6 +68,9 @@ function buildBadgeStats(state: AppState): BadgeCheckStats {
   }
 
   const locationIds = new Set(state.actions.filter((a) => a.locationId).map((a) => a.locationId));
+  const currentStage = getCityStage(state.user.ecoPoints);
+  const stageOrder = ['wasteland', 'recovering', 'neutral', 'green', 'utopia'];
+  const storyChaptersRead = stageOrder.indexOf(currentStage) + 1;
 
   return {
     totalActions: state.actions.length,
@@ -61,7 +82,7 @@ function buildBadgeStats(state: AppState): BadgeCheckStats {
     challengesCompleted: state.challenges.filter((c) => c.status === 'completed').length,
     totalCo2SavedKg: state.actions.reduce((sum, a) => sum + a.co2SavedKg, 0),
     locationsVisited: locationIds.size,
-    storyChaptersRead: 0,
+    storyChaptersRead,
   };
 }
 
@@ -72,7 +93,6 @@ export const useAppStore = create<AppState>((set, get) => ({
   challenges: [],
   badges: [],
   redemptions: [],
-  treesPlanted: 0,
 
   setUser: (user) => set({ user }),
 
@@ -115,19 +135,43 @@ export const useAppStore = create<AppState>((set, get) => ({
       newBadges.push({ id: Date.now().toString(36) + Math.random().toString(36).substring(2, 5), badgeId, unlockedAt: currentDate });
     }
 
-    set({
-      user: {
+    const updatedUser: UserProfile = {
         ...state.user,
         level: result.newLevel,
         xp: result.newXp,
         ecoPoints: result.newEcoPoints,
         streak: result.newStreak,
         lastActionDate: currentDate,
-      },
+        streakFreezes: result.remainingFreezes,
+      };
+
+    set({
+      user: updatedUser,
       actions: [...state.actions, newAction],
       cityTiles: newTiles,
       badges: newBadges,
     });
+
+    persistSafely(insertAction(newAction));
+    persistSafely(upsertUserProfile(updatedUser));
+    if (result.newBuilding) {
+      const tile = newTiles.find((t) => t.x === result.newBuilding!.x && t.y === result.newBuilding!.y);
+      if (tile) {
+        persistSafely(updateCityTile(tile));
+      }
+    }
+    for (const badge of newBadges.filter((badge) => result.unlockedBadges.includes(badge.badgeId))) {
+      persistSafely(insertBadgeUnlock(badge));
+    }
+
+    const updatedState = get();
+    for (const challenge of updatedState.challenges) {
+      if (challenge.status !== 'active') continue;
+      const def = ALL_CHALLENGE_DEFS.find((d) => d.id === challenge.challengeDefId);
+      if (def && (!def.actionType || def.actionType === input.type)) {
+        get().updateChallengeProgress(challenge.challengeDefId, 1);
+      }
+    }
 
     return result;
   },
@@ -145,10 +189,15 @@ export const useAppStore = create<AppState>((set, get) => ({
       redeemedAt: new Date().toISOString(),
     };
 
+    const updatedUser = { ...state.user, ecoPoints: state.user.ecoPoints - cost };
+
     set({
-      user: { ...state.user, ecoPoints: state.user.ecoPoints - cost },
+      user: updatedUser,
       redemptions: [...state.redemptions, redemption],
     });
+
+    persistSafely(insertRedemption(redemption));
+    persistSafely(upsertUserProfile(updatedUser));
 
     return { code };
   },
@@ -162,22 +211,34 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
 
   updateChallengeProgress: (challengeDefId, increment) => {
+    let updatedChallenge: ChallengeProgress | null = null;
     set((state) => ({
-      challenges: state.challenges.map((c) =>
-        c.challengeDefId === challengeDefId && c.status === 'active'
-          ? { ...c, progress: c.progress + increment, status: c.progress + increment >= c.progress ? c.status : c.status }
-          : c,
-      ),
+      challenges: state.challenges.map((c) => {
+        if (c.challengeDefId !== challengeDefId || c.status !== 'active') return c;
+        const newProgress = c.progress + increment;
+        updatedChallenge = {
+          ...c,
+          progress: newProgress,
+          status: newProgress >= getGoalForChallenge(c.challengeDefId) ? 'completed' as const : 'active' as const,
+        };
+        return updatedChallenge;
+      }),
     }));
+
+    if (updatedChallenge) {
+      persistSafely(upsertChallenge(updatedChallenge));
+    }
   },
 
   resetDailyChallenges: (newChallenges) => {
-    set((state) => ({
-      challenges: [
-        ...state.challenges.filter((c) => c.scope !== 'daily' || c.status === 'completed'),
-        ...newChallenges,
-      ],
-    }));
+    const nextChallenges = [
+      ...get().challenges.filter((c) => c.scope !== 'daily' || c.status === 'completed'),
+      ...newChallenges,
+    ];
+    set({ challenges: nextChallenges });
+    for (const challenge of newChallenges) {
+      persistSafely(upsertChallenge(challenge));
+    }
   },
 
   hydrate: (data) => set(data),

@@ -2,14 +2,6 @@ export function xpForLevel(level: number): number {
   return level * level * 100;
 }
 
-export function totalXpForLevel(level: number): number {
-  let total = 0;
-  for (let i = 1; i <= level; i++) {
-    total += xpForLevel(i);
-  }
-  return total;
-}
-
 export function computeLevel(currentLevel: number, currentXp: number, xpGained: number): { level: number; xp: number } {
   let level = currentLevel;
   let xp = currentXp + xpGained;

@@ -21,20 +21,13 @@ const DEFS_BY_SCOPE: Record<ChallengeScope, ChallengeDef[]> = {
 export function ChallengeList({ challenges, scope }: Props) {
   const { locale, t } = useI18n();
   const defs = DEFS_BY_SCOPE[scope];
-  const progressByDefId = new Map(challenges.filter((item) => item.scope === scope).map((item) => [item.challengeDefId, item]));
-  const items = defs
-    .map((def) => ({
-      def,
-      challenge: progressByDefId.get(def.id) ?? {
-        id: `${scope}-${def.id}`,
-        challengeDefId: def.id,
-        scope,
-        progress: 0,
-        status: 'active' as const,
-        startedAt: new Date().toISOString(),
-        periodKey: scope,
-      },
-    }));
+  const items = challenges
+    .filter((item) => item.scope === scope)
+    .map((challenge) => ({
+      challenge,
+      def: defs.find((def) => def.id === challenge.challengeDefId),
+    }))
+    .filter((item): item is { challenge: ChallengeProgress; def: ChallengeDef } => Boolean(item.def));
 
   if (items.length === 0) {
     return <Text className="text-sm text-foreground/60">{t('challenges.placeholder')}</Text>;

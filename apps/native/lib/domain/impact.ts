@@ -8,8 +8,8 @@ export function computeImpact(actions: ActionLog[]): ImpactSummary {
   let waterSavedL = 0;
 
   for (const action of actions) {
+    totalCo2SavedKg += action.co2SavedKg;
     const def = getActionDef(action.type);
-    totalCo2SavedKg += def.co2SavedKg;
     totalWasteDivertedKg += def.wasteKg;
     waterSavedL += def.waterSavedL;
   }

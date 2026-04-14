@@ -128,7 +128,9 @@ export const ar = {
   map: {
     title: 'خريطة إعادة التدوير',
     filter: 'تصفية',
+    all: 'الكل',
     plastic: 'بلاستيك',
+    metal: 'معدن',
     paper: 'ورق',
     glass: 'زجاج',
     electronics: 'إلكترونيات',

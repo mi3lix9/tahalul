@@ -52,6 +52,8 @@ export function applyVerifiedAction(
     newEcoPoints,
     newStreak: streakResult.newStreak,
     streakContinued: streakResult.continued,
+    streakFreezeUsed: streakResult.freezeUsed,
+    remainingFreezes: streakResult.remainingFreezes,
     newBuilding,
     newCityStage,
     unlockedBadges,
