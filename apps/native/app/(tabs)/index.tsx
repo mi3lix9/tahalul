@@ -1,10 +1,20 @@
-import { View, Text } from 'react-native';
+import { ScrollView } from 'react-native';
+
+import { AppScreen } from '@/components/app-screen';
+import { BadgeStrip } from '@/features/profile/components/badge-strip';
+import { CityGrid } from '@/features/city/components/city-grid';
+import { CityStageHeader } from '@/features/city/components/city-stage-header';
+import { CitySummaryCard } from '@/features/city/components/city-summary-card';
 
 export default function HomeScreen() {
   return (
-    <View className="flex-1 items-center justify-center bg-background">
-      <Text className="text-2xl font-bold text-foreground">🏙️ المدينة</Text>
-      <Text className="mt-2 text-foreground/60">مدينتك الخضراء ستظهر هنا</Text>
-    </View>
+    <AppScreen className="bg-background">
+      <ScrollView className="flex-1" contentContainerClassName="pb-6">
+        <CityStageHeader />
+        <CityGrid />
+        <CitySummaryCard />
+        <BadgeStrip />
+      </ScrollView>
+    </AppScreen>
   );
 }

@@ -36,6 +36,7 @@ export const ar = {
     city: 'المدينة',
     cityPlaceholder: 'مدينتك الخضراء ستظهر هنا',
     streak: 'أيام متتالية',
+    todayQuickStats: 'إحصاءات اليوم',
     todayChallenges: 'تحديات اليوم',
     quickActions: 'وصول سريع',
     map: 'الخريطة',
@@ -165,6 +166,9 @@ export const ar = {
     impactMaker: 'صانع الأثر',
     mapExplorer: 'مستكشف الخريطة',
     storyReader: 'قارئ القصة',
+    unlockedOn: 'تم الفتح في',
+    lockedStatus: 'هذه الشارة ما زالت مقفلة',
+    notFound: 'الشارة غير موجودة',
   },
   city: {
     wasteland: 'أرض قاحلة',

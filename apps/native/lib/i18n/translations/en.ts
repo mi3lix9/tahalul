@@ -36,6 +36,7 @@ export const en = {
     city: 'City',
     cityPlaceholder: 'Your green city will appear here',
     streak: 'Day Streak',
+    todayQuickStats: "Today's Quick Stats",
     todayChallenges: "Today's Challenges",
     quickActions: 'Quick Access',
     map: 'Map',
@@ -165,6 +166,9 @@ export const en = {
     impactMaker: 'Impact Maker',
     mapExplorer: 'Map Explorer',
     storyReader: 'Story Reader',
+    unlockedOn: 'Unlocked on',
+    lockedStatus: 'This badge is still locked',
+    notFound: 'Badge not found',
   },
   city: {
     wasteland: 'Wasteland',
